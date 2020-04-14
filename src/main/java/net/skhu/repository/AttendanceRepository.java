@@ -14,5 +14,8 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
 	List<Integer[]> findAttendanceCountOfStateByRegistration_Id(int registrationId);
 
 	Attendance findByRegistration_IdAndNum(int regiId, int num);
+	
+	Attendance findByRegistration_Course_IdAndNum(int courId, int num);
+
 
 }

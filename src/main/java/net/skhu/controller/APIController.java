@@ -18,6 +18,7 @@ import net.skhu.domain.Student;
 import net.skhu.domain.Time;
 import net.skhu.etc.Att;
 import net.skhu.etc.Message;
+import net.skhu.repository.AdminRepository;
 import net.skhu.repository.AttendanceRepository;
 import net.skhu.repository.CourseRepository;
 import net.skhu.repository.ProfessorRepository;
@@ -37,6 +38,12 @@ public class APIController {
 	AttendanceRepository attendanceRepository;
 	@Autowired
 	CourseRepository courseRepository;
+	@Autowired
+	AdminRepository adminRepository;
+
+	public int getSemId() {
+		return adminRepository.findById(1).get().getSemester().getId();
+	}
 
 	// [앱]로그인
 	@RequestMapping("login/{stuNum}/{password}")
@@ -151,7 +158,83 @@ public class APIController {
 	public Message lateQR(@PathVariable("roomCode") int roomCode, @PathVariable("stuId") int stuId) {
 		System.out.println(roomCode + " " + stuId);
 
-		return new Message("지각성공");
+		LocalDateTime nowDateTime = LocalDateTime.now();
+		int nowDayOfWeek = nowDateTime.getDayOfWeek().getValue();
+		LocalTime now = nowDateTime.toLocalTime();
+		int courseListIndex = -1;
+		int timeListIndex = -1; // 몇번 째 시간과 일치하는 지 저장
+
+		// 해당 학기, 해당 강의실, 해당 요일
+		List<Course> courseList = courseRepository.findCourseByRoomCodeAndDayOfWeekAndSemesterId(roomCode, nowDayOfWeek,
+				getSemId());
+
+		for (int i = 0; i < courseList.size(); ++i) {
+			Course course = courseList.get(i);
+
+			// 수강 중인 과목인가?
+			Registration registration = registrationRepository.findByStudent_IdAndCourse_Id(stuId, course.getId());
+			if (registration == null) {
+				System.out.println("수강 중인 강의가 아닙니다.");
+				return new Message("수강 중인 강의가 아닙니다.");
+
+			} else {
+
+				List<Time> timeList = course.getTimes();
+
+				for (int j = 0; j < timeList.size(); ++j) {
+
+					if (timeList.get(j).getStartTime().isBefore(now) && now.isBefore(timeList.get(j).getEndTime())) {
+						timeListIndex = j; // 시간인덱스
+						break;
+					}
+
+				}
+
+				if (timeListIndex != -1) { // 일치하는 강의 시간 찾음
+					courseListIndex = i; // 강의 인덱스
+					break;
+				}
+			}
+		}
+
+		if (courseListIndex == -1) { // 강의들과 시간이 하나도 안맞음.
+			System.out.println("수업 중인 강의가 없습니다.");
+			return new Message("수업 중인 강의가 없습니다.");
+
+		} else { // 몇주가 지났는지
+			Course course = courseList.get(courseListIndex);
+			List<Time> timeList = course.getTimes();
+			int x = timeList.get(timeListIndex).getStartDate().until(nowDateTime.toLocalDate()).getDays() / 7;
+			int attedanceNum; // 차시
+
+			if (timeList.size() == 1) // 분할 강의가 아닐 때
+				attedanceNum = x + 1;
+			else
+				attedanceNum = 2 * x + timeListIndex + 1;
+
+			System.out.println(attendanceRepository.findByRegistration_Course_IdAndNum(course.getId(), attedanceNum));
+			Attendance a = attendanceRepository.findByRegistration_Course_IdAndNum(course.getId(), attedanceNum);
+			int state = a.getState();
+			if (state == 1) {
+				System.out.println("이미 출석 하였습니다.");
+				return new Message("이미 출석 하였습니다.");
+			} else {
+				if (course.getShow()) {// 출석 중인가?
+					a.setState(1);
+					System.out.println(a);
+//			attendanceRepository.save(a);
+					return new Message("출석하였습니다.");
+				} else {
+					a.setState(2);
+					System.out.println(a);
+//				attendanceRepository.save(a);
+					return new Message("지각처리되었습니다.");
+				}
+
+			}
+		}
+
+//		return new Message("지각성공");
 	}
 
 	@RequestMapping("student/{id}/courses")
