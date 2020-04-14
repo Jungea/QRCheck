@@ -6,13 +6,17 @@
 <html>
 <head>
 
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
 <script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.css" />
-<script type="text/javascript"
-	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js"></script>
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
 
 <meta charset="UTF-8">
 <title>로그인</title>
@@ -71,40 +75,34 @@ a {
 </head>
 <body>
 
+	<nav class="navbar navbar-expand navbar-dark bg-primary mb-3">
+		<a class="navbar-brand" href="#">성공회대 출석체크</a>
 
-	<div class="ui grid middle aligned center aligned">
-		<div class="column">
-			<h1 class="ui teal header" style="font-size: 40px;">TAGNOTE</h1>
+	</nav>
 
-			<form:form method="post" class="ui form" modelAttribute="user"
-				id="loginForm">
-				<div class="ui segment">
-					<div class="field" style="text-align: left;">
-						<label>아이디</label>
-						<div class="ui left icon input">
-							<i class="user icon"></i>
-							<form:input path="userId" placeholder="아이디" />
-						</div>
-					</div>
-					<div class="field" style="text-align: left;">
-						<label>비밀번호</label>
-						<div class="ui left icon input">
-							<i class="lock icon"></i>
-							<form:password path="userPass" placeholder="비밀번호" />
-						</div>
-					</div>
-					<button class="ui button fluid teal" type="submit">로그인</button>
-				</div>
-			</form:form>
-
-			<div class="ui divider"></div>
-			<div class="ui right aligned container">
-				<span><a href="findPassword">비밀번호 찾기</a></span> <span>|</span> <span><a
-					href="membership">회원가입</a></span>
+	<div class="container" style="margin-top: 100px;">
+		<h1 class="text-center">LOGIN</h1>
+		<hr />
+		<form method="post">
+			<div class="form-group">
+				<label for="num" class="sr-only">아이디 :</label> <input
+					type="text" id="num" name="num" value=""
+					class="form-control" placeholder="아이디" required autofocus />
 			</div>
-		</div>
+
+			<div class="form-group">
+				<label for="pass" class="sr-only">비밀번호</label> <input
+					type="password" id="pass" name="pass" class="form-control"
+					placeholder="비밀번호" required>
+			</div>
+
+			<hr />
+			<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
+		</form>
 
 	</div>
+
+
 
 </body>
 </html>
