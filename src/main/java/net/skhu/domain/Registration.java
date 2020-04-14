@@ -1,37 +1,44 @@
 package net.skhu.domain;
 
-import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@ToString(exclude={"student","course"})
-@EqualsAndHashCode(exclude={"student","course"})
+@ToString(exclude = { "student", "course", "division", "attendances" })
+@EqualsAndHashCode(exclude = { "student", "course", "division", "attendances" })
 @Entity
-@Table(name = "register")
 public class Registration {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	Integer grade;
-	Date createDate;
-	int state;
 
 	@ManyToOne
-	@JoinColumn(name = "studentId")
+	@JoinColumn(name = "stuId")
 	Student student;
 
 	@ManyToOne
-	@JoinColumn(name = "courseId")
+	@JoinColumn(name = "courId")
 	Course course;
+
+	@ManyToOne
+	@JoinColumn(name = "divId")
+	Division division;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "registration", fetch = FetchType.LAZY)
+	List<Attendance> attendances;
 }

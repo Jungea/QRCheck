@@ -1,9 +1,7 @@
 package net.skhu.domain;
 
-import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,29 +18,41 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@ToString(exclude= {"department", "professor", "registrations"})
-@EqualsAndHashCode(exclude = {"department", "professor",  "registrations"})
+@ToString(exclude = { "semester", "professor", "room", "registrations", "divisions", "times" })
+@EqualsAndHashCode(exclude = { "semester", "professor", "room", "registrations", "divisions", "times" })
 @Entity
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	int unit;
-	Date startDate;
-	
-    @Column(name = "courseName")
-    String name;
+
+	String name;
+	Boolean split;
+	int joint;
+	Boolean show;
 
 	@ManyToOne
-	@JoinColumn(name="departmentId")
-	Department department;
-	
+	@JoinColumn(name = "semId")
+	Semester semester;
+
 	@ManyToOne
-	@JoinColumn(name="professorId")
+	@JoinColumn(name = "profId")
 	Professor professor;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "roomId")
+	Room room;
+
 	@JsonIgnore
-	@OneToMany(mappedBy="course", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	List<Registration> registrations;
-	
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+	List<Division> divisions;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+	List<Time> times;
+
 }

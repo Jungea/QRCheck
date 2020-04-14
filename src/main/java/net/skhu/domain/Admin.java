@@ -1,16 +1,11 @@
 package net.skhu.domain;
 
-import java.util.List;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,21 +14,20 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@ToString(exclude={"registrations"})
-@EqualsAndHashCode(exclude={"registrations"})
+@ToString(exclude= {"semester"})
+@EqualsAndHashCode(exclude = {"semester"})
 @Entity
-public class Student {
+public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	
-	String stuNum;
+	String adminNum;
 	String password;
-	String name;
-	String deptName;
-	int year;
+	
+	@OneToOne
+	@JoinColumn(name="semId")
+	Semester semester;
 
-	@JsonIgnore
-	@OneToMany(mappedBy="student", fetch = FetchType.LAZY)
-	List<Registration> registrations;
+	
 }

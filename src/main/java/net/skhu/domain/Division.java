@@ -2,7 +2,6 @@ package net.skhu.domain;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,21 +18,22 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@ToString(exclude={"registrations"})
-@EqualsAndHashCode(exclude={"registrations"})
+@ToString(exclude = { "course", "registrations" })
+@EqualsAndHashCode(exclude = { "course", "registrations" })
 @Entity
-public class Student {
+public class Division {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	
-	String stuNum;
-	String password;
-	String name;
+
+	String code;
 	String deptName;
-	int year;
+
+	@ManyToOne
+	@JoinColumn(name = "courId")
+	Course course;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="student", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	List<Registration> registrations;
 }
