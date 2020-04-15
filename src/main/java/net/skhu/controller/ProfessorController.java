@@ -3,6 +3,7 @@ package net.skhu.controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.skhu.domain.Attendance;
@@ -68,7 +70,7 @@ public class ProfessorController {
 		return "professor/list";
 	}
 
-	@RequestMapping("dateList")
+	@RequestMapping(value = "dateList")
 	public String dateList(Model model, @RequestParam("courId") int courId, HttpServletRequest request) {
 
 		List<DateCard> list = new ArrayList<>();
@@ -77,7 +79,8 @@ public class ProfessorController {
 		List<Time> times = c.getTimes();
 
 		int attNum = 0;
-		for (int i = 0; i < 15; ++i) {
+		int i = 0;
+		for (; i < 15; ++i) {
 			DateCard card = new DateCard();
 
 			// 차시
@@ -90,6 +93,7 @@ public class ProfessorController {
 				// 시간
 				card.setStartTime(times.get(0).getStartTime());
 				card.setEndTime(times.get(0).getEndTime());
+
 			} else {
 				// 날짜
 				card.setDate(times.get(1).getStartDate().plusWeeks(--i));
@@ -109,6 +113,15 @@ public class ProfessorController {
 			list.add(card);
 		}
 
+		DateCard card = new DateCard();
+		card.setAttNum(++attNum);
+		card.setDate(times.get(1).getStartDate().plusWeeks(--i));
+		card.setStartTime(times.get(1).getStartTime());
+		card.setEndTime(times.get(1).getEndTime());
+		card.setCheckNum(attendanceRepository.findByNumAndStateNotAndRegistration_Course_id(attNum, 0, courId).size());
+		card.setTotalNum(c.getRegistrations().size());
+		list.add(card);
+
 		HttpSession session = request.getSession();
 		String userNum = (String) session.getAttribute("userNum");
 		Professor professor = professorRepository.findByProfNum(userNum);
@@ -125,16 +138,30 @@ public class ProfessorController {
 	// 특히 닫아질 때는 state가 1이 아닌 학생 다 결석으로
 	// attendance.registration.course.id =3 and state=0 setState(2);
 
-	@RequestMapping("personList")
+	@RequestMapping(value = "personList", method = RequestMethod.POST)
+	public String personList(Model model, @RequestParam("courId") int courId, @RequestParam("attNum") int attNum,
+			@RequestParam("state") int[] state, HttpServletRequest request) {
+
+		List<Attendance> attendances = attendanceRepository.findByRegistration_Course_IdAndNum(courId, attNum);
+
+		for (int i = 0; i < attendances.size(); ++i) {
+			attendances.get(i).setState(state[i]);
+			attendanceRepository.save(attendances.get(i));
+		}
+
+		return "redirect:dateList?courId=" + courId;
+	}
+
+	@RequestMapping(value = "personList", method = RequestMethod.GET)
 	public String personList(Model model, @RequestParam("courId") int courId, @RequestParam("attNum") int attNum,
 			HttpServletRequest request) {
 		System.out.println(courId + " " + attNum);
-		
+
 		List<Attendance> attendances = attendanceRepository.findByRegistration_Course_IdAndNum(courId, attNum);
 		model.addAttribute("modalList", attendances);
-		
+
 		dateList(model, courId, request);
-		
+
 		return "professor/dataList";
 	}
 
