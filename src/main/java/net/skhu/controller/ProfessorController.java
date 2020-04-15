@@ -113,14 +113,17 @@ public class ProfessorController {
 			list.add(card);
 		}
 
-		DateCard card = new DateCard();
-		card.setAttNum(++attNum);
-		card.setDate(times.get(1).getStartDate().plusWeeks(--i));
-		card.setStartTime(times.get(1).getStartTime());
-		card.setEndTime(times.get(1).getEndTime());
-		card.setCheckNum(attendanceRepository.findByNumAndStateNotAndRegistration_Course_id(attNum, 0, courId).size());
-		card.setTotalNum(c.getRegistrations().size());
-		list.add(card);
+		if (times.size() != 1) {
+			DateCard card = new DateCard();
+			card.setAttNum(++attNum);
+			card.setDate(times.get(1).getStartDate().plusWeeks(--i));
+			card.setStartTime(times.get(1).getStartTime());
+			card.setEndTime(times.get(1).getEndTime());
+			card.setCheckNum(
+					attendanceRepository.findByNumAndStateNotAndRegistration_Course_id(attNum, 0, courId).size());
+			card.setTotalNum(c.getRegistrations().size());
+			list.add(card);
+		}
 
 		HttpSession session = request.getSession();
 		String userNum = (String) session.getAttribute("userNum");
