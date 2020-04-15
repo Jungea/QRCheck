@@ -22,17 +22,9 @@
 <title>로그인</title>
 
 <style type="text/css">
-body>.grid {
-	height: 100%;
-}
-
-.column {
-	max-width: 500px;
-}
-
-a {
-	color: black;
-}
+.container {
+            max-width: 500px;
+        }
 </style>
 
 <script>
