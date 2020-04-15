@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,35 +25,49 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<div class="row row-cols-1 row-cols-md-5">
+					<form class="row row-cols-1 row-cols-md-5" method="post"
+						id="personForm">
 
-						<c:forEach var="person" items="${ modalList }">
+						<c:forEach var="person" items="${ modalList }" varStatus="status">
 							<div class="col mb-2 mt-2">
 
 								<div class="card">
-									<img src="${R}image/student/7.jpg" class="card-img-top"
-										alt="...">
+									<img
+										src="${R}image/student/${ person.registration.student.id%11+1 }.jpg"
+										class="card-img-top" alt="...">
 									<div class="card-body">
-										<h5 class="card-title">${ person.registration.student.name }</h5>
-										<p class="card-text">${ person.registration.student.name }</p>
-										<select class="form-control">
-											<option>미확인</option>
-											<option>출석</option>
-											<option>지각</option>
-											<option>결석</option>
+										<h5 class="card-title text-center">${ person.registration.student.name }</h5>
+										<p class="card-text text-center">
+											${ person.registration.student.stuNum } <br>${ person.registration.student.deptName }</p>
+
+
+										<input type="hidden" name="courId" value="${ courId }">
+										<input type="hidden" name="attNum" value="${ person.num }">
+										<select name="state" class="form-control">
+											<option value="0" ${person.state == 0 ? "selected" : ""}>미입력
+											</option>
+											<option value="1" ${person.state == 1 ? "selected" : ""}>출석</option>
+											<option value="2" ${person.state == 2 ? "selected" : ""}>지각</option>
+											<option value="3" ${person.state == 3 ? "selected" : ""}>결석</option>
+											<option value="4" ${person.state == 4 ? "selected" : ""}>인정</option>
+											<option value="5" ${person.state == 5 ? "selected" : ""}>생공</option>
+											<option value="6" ${person.state == 6 ? "selected" : ""}>조퇴</option>
 										</select>
+
+
 									</div>
 								</div>
 
 							</div>
 
 						</c:forEach>
-					</div>
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary" form="personForm">Save
+						changes</button>
 				</div>
 			</div>
 		</div>

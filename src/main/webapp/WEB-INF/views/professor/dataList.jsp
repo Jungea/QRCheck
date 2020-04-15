@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="R" value="/" />
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,12 @@
 <script src="${R}res/common.js"></script>
 <!-- <link rel="stylesheet" href="${R}res/common.css"> -->
 
+<style>
+hr {
+	background-color: gainsboro;
+	height: 5px;
+}
+</style>
 
 
 </head>
@@ -71,7 +78,7 @@
 			</h1>
 			<hr />
 
-			<div class="card">
+			<div class="card" style="border: 1px solid white">
 				<div class="card-body">
 					<div class="mb-2">
 						<button type="button" id="openQRBtn"
@@ -86,7 +93,7 @@
 
 								<div class="card card_lecture">
 									<div class="card-body">
-										<h5 class="card-title">${ card.attNum }회차${ card.date }</h5>
+										<h5 class="card-title">${ card.attNum }회차 &nbsp${ card.date }</h5>
 										<h6 class="card-subtitle mb-2 text-muted">${ card.getStringWeek(card.date.getDayOfWeek().getValue()) }
 											${ card.startTime } - ${ card.endTime }</h6>
 										<p class="card-text">출석체크 인원 ${ card.checkNum }/${ card.totalNum }</p>

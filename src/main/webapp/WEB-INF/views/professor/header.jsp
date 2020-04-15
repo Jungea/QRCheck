@@ -11,7 +11,7 @@
 <body>
 	<header class="mb-5">
         <nav class="navbar navbar-expand navbar-dark bg-primary ">
-            <a class="navbar-brand" href="list">성공회대 출석체크</a>
+            <a class="navbar-brand" href="list">성공회대학교 출석체크</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

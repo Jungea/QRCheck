@@ -20,6 +20,12 @@
 <script src="${R}res/common.js"></script>
 <!-- <link rel="stylesheet" href="${R}res/common.css"> -->
 
+<style>
+hr {
+background-color: gainsboro;
+height: 5px;
+}
+</style>
 
 </head>
 <body>
@@ -30,13 +36,13 @@
 		<div class="jumbotro ">
 
 
-			<h1>강의목록</h1>
+			<h1 class=""><b>강 의 목 록</b></h1>
 			<hr />
 
-			<div class="card">
+			<div class="card" style="border: 1px solid white">
 				<div class="card-body">
 
-					<div class="row row-cols-1 row-cols-md-2">
+					<div class="row row-cols-1 row-cols-md-3" >
 
 						<c:forEach var="course" items="${ list }">
 							<div class="col mb-2 mt-2" data-url="dateList?courId=${ course.id }">

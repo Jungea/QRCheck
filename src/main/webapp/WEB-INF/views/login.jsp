@@ -27,48 +27,18 @@
         }
 </style>
 
+
 <script>
 	$(function() {
-		$("#loginForm").submit(function() {
-			$('.error').each(function() {
-				$(this).toggleClass('error');
-			});
-
-			var errorText = "";
-
-			var userId = $('#userId').val();
-			if (isEmptyOrWhiteSpace(userId)) {
-				errorText += "아이디를 입력하세요. \n";
-				$('#userId').parent().parent().addClass('error')
-			}
-			var userPass = $('#userPass').val();
-			if (isEmptyOrWhiteSpace(userPass)) {
-				errorText += "비밀번호를 입력하세요. \n";
-				$('#userPass').parent().parent().addClass('error')
-			}
-
-			if (errorText.length != 0) {
-				alert(errorText)
-				return false;
-			}
-
-		})
-
-		function isEmptyOrWhiteSpace(inputValue) {
-
-			if (inputValue == null)
-				return true;
-			return inputValue.trim().length == 0;
-		}
-
+		
 	})
 </script>
 
 </head>
 <body>
 
-	<nav class="navbar navbar-expand navbar-dark bg-primary mb-3">
-		<a class="navbar-brand" href="#">성공회대 출석체크</a>
+	<nav class="navbar navbar-expand navbar-dark bg-primary mb-3" >
+		<a class="navbar-brand" href="#">성공회대학교 출석체크</a>
 
 	</nav>
 
