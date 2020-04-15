@@ -28,26 +28,27 @@
 				<div class="modal-body">
 					<div class="row row-cols-1 row-cols-md-5">
 
+						<c:forEach var="person" items="${ modalList }">
+							<div class="col mb-2 mt-2">
 
-						<div class="col mb-2 mt-2">
-
-							<div class="card">
-								<img src="${R}image/student/7.jpg" class="card-img-top" alt="...">
-								<div class="card-body">
-									<h5 class="card-title">고북희</h5>
-									<p class="card-text">체육과학과</p>
-									<select class="form-control">
-										<option>미확인</option>
-										<option>출석</option>
-										<option>지각</option>
-										<option>결석</option>
-									</select>
+								<div class="card">
+									<img src="${R}image/student/7.jpg" class="card-img-top"
+										alt="...">
+									<div class="card-body">
+										<h5 class="card-title">${ person.registration.student.name }</h5>
+										<p class="card-text">${ person.registration.student.name }</p>
+										<select class="form-control">
+											<option>미확인</option>
+											<option>출석</option>
+											<option>지각</option>
+											<option>결석</option>
+										</select>
+									</div>
 								</div>
+
 							</div>
 
-						</div>
-
-
+						</c:forEach>
 					</div>
 				</div>
 				<div class="modal-footer">

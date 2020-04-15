@@ -15,7 +15,9 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
 
 	Attendance findByRegistration_IdAndNum(int regiId, int num);
 	
-	Attendance findByRegistration_Course_IdAndNum(int courId, int num);
+//	Attendance findByRegistration_Course_IdAndNums(int courId, int num);
+	
+	List<Attendance> findByRegistration_Course_IdAndNum(int courId, int num);
 
 
 }

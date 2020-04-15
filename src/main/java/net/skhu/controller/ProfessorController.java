@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.skhu.domain.Attendance;
 import net.skhu.domain.Course;
 import net.skhu.domain.Professor;
 import net.skhu.domain.Time;
@@ -48,7 +49,7 @@ public class ProfessorController {
 	public int getSemId() {
 		return adminRepository.findById(1).get().getSemester().getId();
 	}
-	
+
 	// 페이지 내의 로그아웃 버튼을 클릭
 	@RequestMapping("logout")
 	public String logout(Model model, HttpServletRequest request) {
@@ -68,10 +69,10 @@ public class ProfessorController {
 	}
 
 	@RequestMapping("dateList")
-	public String dateList(Model model, @RequestParam("id") int id, HttpServletRequest request) {
-		
+	public String dateList(Model model, @RequestParam("courId") int courId, HttpServletRequest request) {
+
 		List<DateCard> list = new ArrayList<>();
-		Course c = courseRepository.findById(id).get();
+		Course c = courseRepository.findById(courId).get();
 
 		List<Time> times = c.getTimes();
 
@@ -99,38 +100,42 @@ public class ProfessorController {
 			}
 
 			// 출석체크 인원
-			card.setCheckNum(attendanceRepository.findByNumAndStateNotAndRegistration_Course_id(attNum, 0, id).size());
+			card.setCheckNum(
+					attendanceRepository.findByNumAndStateNotAndRegistration_Course_id(attNum, 0, courId).size());
 
 			// 총인원
 			card.setTotalNum(c.getRegistrations().size());
 
 			list.add(card);
 		}
-		
+
 		HttpSession session = request.getSession();
 		String userNum = (String) session.getAttribute("userNum");
 		Professor professor = professorRepository.findByProfNum(userNum);
 		model.addAttribute("user", professor);
 
+		model.addAttribute("course", c);
 		model.addAttribute("list", list);
-		
-		model.addAttribute("courId", id);
+
+		model.addAttribute("courId", courId);
 		return "professor/dataList";
 	}
-	
-	//QR코드 Modal 열고 닫을 때 course.show 변화
-	//특히 닫아질 때는 state가 1이 아닌 학생 다 결석으로 
-	//attendance.registration.course.id =3 and state=0   setState(2);
+
+	// QR코드 Modal 열고 닫을 때 course.show 변화
+	// 특히 닫아질 때는 state가 1이 아닌 학생 다 결석으로
+	// attendance.registration.course.id =3 and state=0 setState(2);
 
 	@RequestMapping("personList")
-	public String personList(Model model, @RequestParam("id") int id, HttpServletRequest request) {
-		System.out.println(id);
-		HttpSession session = request.getSession();
-		String userNum = (String) session.getAttribute("userNum");
-		Professor professor = professorRepository.findByProfNum(userNum);
-		model.addAttribute("user", professor);
-		model.addAttribute("list", professor.getCourses());
-		return "professor/list";
+	public String personList(Model model, @RequestParam("courId") int courId, @RequestParam("attNum") int attNum,
+			HttpServletRequest request) {
+		System.out.println(courId + " " + attNum);
+		
+		List<Attendance> attendances = attendanceRepository.findByRegistration_Course_IdAndNum(courId, attNum);
+		model.addAttribute("modalList", attendances);
+		
+		dateList(model, courId, request);
+		
+		return "professor/dataList";
 	}
 
 }

@@ -104,6 +104,20 @@ public class SuperController {
 
 		}
 	}
+	
+	@RequestMapping("insertAttendance")
+	public void insertAttendance() {
+		List<Registration> registration = registrationRepository.findAll();
+		for (int j = 0; j < registration.size(); ++j) {
+			for (int i = 1; i < 16; ++i) {
+				Attendance a = new Attendance();
+				a.setNum(i);
+				a.setState(0);
+				a.setRegistration(registration.get(j));
+				attendanceRepository.save(a);
+			}
+		}
+	}
 
 	@RequestMapping("make/room/{roomCode}")
 	public void makeRoom(@PathVariable("roomCode") int roomCode) {
