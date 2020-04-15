@@ -212,8 +212,10 @@ public class APIController {
 			else
 				attedanceNum = 2 * x + timeListIndex + 1;
 
-			System.out.println(attendanceRepository.findByRegistration_Course_IdAndNum(course.getId(), attedanceNum));
-			Attendance a = attendanceRepository.findByRegistration_Course_IdAndNum(course.getId(), attedanceNum);
+			Registration registration = registrationRepository.findByStudent_IdAndCourse_Id(stuId, course.getId());
+
+			System.out.println(attendanceRepository.findByRegistration_IdAndNum(course.getId(), attedanceNum));
+			Attendance a = attendanceRepository.findByRegistration_IdAndNum(course.getId(), attedanceNum);
 			int state = a.getState();
 			if (state == 1) {
 				System.out.println("이미 출석 하였습니다.");
@@ -235,6 +237,22 @@ public class APIController {
 		}
 
 //		return new Message("지각성공");
+	}
+
+	// 강의 QR코드 클릭시 course.show 바뀜.
+	@RequestMapping("openQR/course/{id}")
+	public void openQR(@PathVariable("id") int id) {
+		Course course = courseRepository.findById(id).get();
+		course.setShow(true);
+		courseRepository.save(course);
+	}
+
+	// 강의 QR코드 닫기 클릭시 course.show 바뀜.
+	@RequestMapping("closeQR/course/{id}")
+	public void closeQR(@PathVariable("id") int id) {
+		Course course = courseRepository.findById(id).get();
+		course.setShow(false);
+		courseRepository.save(course);
 	}
 
 	@RequestMapping("student/{id}/courses")
