@@ -16,18 +16,18 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-@ToString(exclude= {"courses"})
-@EqualsAndHashCode(exclude = {"courses"})
+@ToString(exclude = { "courses" })
+@EqualsAndHashCode(exclude = { "courses" })
 @Entity
 public class Room {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	
+
 	int code;
 	String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy="room", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
 	List<Course> courses;
 }
