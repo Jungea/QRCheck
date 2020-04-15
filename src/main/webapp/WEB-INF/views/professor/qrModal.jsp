@@ -36,7 +36,7 @@ $(function(){
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">출석 QR코드</h5>
+                    <h4 class="modal-title" id="exampleModalCenterTitle"><b>강의 출석 QR코드</b></h4>
                     <button type="button" class="closeQRBtn close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

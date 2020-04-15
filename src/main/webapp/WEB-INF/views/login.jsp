@@ -57,10 +57,13 @@
 					type="password" id="pass" name="pass" class="form-control"
 					placeholder="비밀번호" required>
 			</div>
+			
+			<div class="text-center" style="color:red">${ message }</div>
 
 			<hr />
 			<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
 		</form>
+		
 
 	</div>
 

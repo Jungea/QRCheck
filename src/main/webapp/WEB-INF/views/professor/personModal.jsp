@@ -17,8 +17,7 @@
 			role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">2020.04.04 (1)
-						출석체크</h5>
+					<h4 class="modal-title ml-2" id="exampleModalLabel"><b>출석 입력</b></h4>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>

@@ -56,6 +56,7 @@ public class CommonController {
 			return "redirect:professor/list";	
 		}else {
 			System.out.println("잘못된 입력");
+			model.addAttribute("message", "[ 로그인 정보가 일치하지 않습니다. ]");
 			return "login";
 		}
 	}
