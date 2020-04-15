@@ -46,14 +46,22 @@
 								<div class="card card_lecture">
 									<div class="card-body">
 										<h5 class="card-title">${ course.name }</h5>
-										<h6 class="card-subtitle mb-2 text-muted">
-											<c:forEach var="division" items="${ course.divisions }">
-												${ division.code } &nbsp
+										<h6 class="card-subtitle mb-2 text-muted">[
+											<c:forEach var="division" items="${ course.divisions }"
+												varStatus="status">
+												<c:if test="${ status.count != 1 }">, </c:if>
+												${ division.code }
 											</c:forEach>
+											]
 										</h6>
 										<p class="card-text">
-											<c:forEach var="time" items="${ course.times }">
+											<c:forEach var="time" items="${ course.times }"
+												varStatus="status">
+												<c:if test="${ status.count == 2 }">
+													<br>
+												</c:if>
 												${ time.getStringWeek(time.dayOfWeek) } ${ time.startTime } ~ ${ time.endTime }
+												
 											</c:forEach>
 											<br> ${ course.room.code }
 										</p>

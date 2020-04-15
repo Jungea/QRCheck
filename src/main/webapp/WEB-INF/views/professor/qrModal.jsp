@@ -21,7 +21,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img src="${R}image/qr/${ courId }.png" class="card-img-top" alt="...">
+                    <img src="${R}image/checkQR/${ courId }.png" class="card-img-top" alt="...">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
