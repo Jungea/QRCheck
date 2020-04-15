@@ -18,6 +18,7 @@ import net.skhu.domain.Course;
 import net.skhu.domain.Professor;
 import net.skhu.domain.Time;
 import net.skhu.etc.DateCard;
+import net.skhu.repository.AdminRepository;
 import net.skhu.repository.AttendanceRepository;
 import net.skhu.repository.CourseRepository;
 import net.skhu.repository.DivisionRepository;
@@ -41,7 +42,13 @@ public class ProfessorController {
 	DivisionRepository divisionRepository;
 	@Autowired
 	AttendanceRepository attendanceRepository;
+	@Autowired
+	AdminRepository adminRepository;
 
+	public int getSemId() {
+		return adminRepository.findById(1).get().getSemester().getId();
+	}
+	
 	// 페이지 내의 로그아웃 버튼을 클릭
 	@RequestMapping("logout")
 	public String logout(Model model, HttpServletRequest request) {
@@ -56,7 +63,7 @@ public class ProfessorController {
 		String userNum = (String) session.getAttribute("userNum");
 		Professor professor = professorRepository.findByProfNum(userNum);
 		model.addAttribute("user", professor);
-		model.addAttribute("list", professor.getCourses());
+		model.addAttribute("list", courseRepository.findByProfessor_IdAndSemester_Id(professor.getId(), getSemId()));
 		return "professor/list";
 	}
 
@@ -110,6 +117,10 @@ public class ProfessorController {
 		model.addAttribute("courId", id);
 		return "professor/dataList";
 	}
+	
+	//QR코드 Modal 열고 닫을 때 course.show 변화
+	//특히 닫아질 때는 state가 1이 아닌 학생 다 결석으로 
+	//attendance.registration.course.id =3 and state=0   setState(2);
 
 	@RequestMapping("personList")
 	public String personList(Model model, @RequestParam("id") int id, HttpServletRequest request) {
