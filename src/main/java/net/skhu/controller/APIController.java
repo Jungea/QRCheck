@@ -41,6 +41,14 @@ public class APIController {
 	@Autowired
 	AdminRepository adminRepository;
 
+	/*
+	 * 현재 시간 조절 (년, 월, 일, 시, 분)
+	 */
+	public LocalDateTime now() {
+		return LocalDateTime.now();
+//		return LocalDateTime.of(2020, 04, 16, 12, 18);
+	}
+
 	public int getSemId() {
 		return adminRepository.findById(1).get().getSemester().getId();
 	}
@@ -81,9 +89,7 @@ public class APIController {
 	@RequestMapping("check/{courId}/{stuId}")
 	public Message checkQR(@PathVariable("courId") int courId, @PathVariable("stuId") int stuId) {
 		System.out.println(courId + " " + stuId);
-//		LocalDateTime nowDateTime = LocalDateTime.now();
-		LocalDateTime nowDateTime = LocalDateTime.of(2020, 03, 16, 12, 12);
-
+		LocalDateTime nowDateTime = now();
 		LocalTime now = nowDateTime.toLocalTime();
 
 		Course course = courseRepository.findById(courId).get();
@@ -160,9 +166,7 @@ public class APIController {
 	@RequestMapping("late/{roomCode}/{stuId}")
 	public Message lateQR(@PathVariable("roomCode") int roomCode, @PathVariable("stuId") int stuId) {
 		System.out.println(roomCode + " " + stuId);
-		LocalDateTime nowDateTime = LocalDateTime.of(2020, 03, 16, 12, 12);
-
-//		LocalDateTime nowDateTime = LocalDateTime.now();
+		LocalDateTime nowDateTime = now();
 		int nowDayOfWeek = nowDateTime.getDayOfWeek().getValue();
 		LocalTime now = nowDateTime.toLocalTime();
 		int courseListIndex = -1; // 몇번째 과목과 일치하는 지 저장
@@ -261,8 +265,7 @@ public class APIController {
 		course.setShow(false);
 		courseRepository.save(course);
 
-//		LocalDateTime nowDateTime = LocalDateTime.now();
-		LocalDateTime nowDateTime = LocalDateTime.of(2020, 03, 16, 12, 12);
+		LocalDateTime nowDateTime = now();
 
 		int nowDayOfWeek = nowDateTime.getDayOfWeek().getValue();
 		LocalTime now = nowDateTime.toLocalTime();

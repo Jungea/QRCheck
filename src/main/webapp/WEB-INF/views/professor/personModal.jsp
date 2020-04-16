@@ -26,6 +26,12 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					<div class="mb-2">
+						<button type="button" id="allCheck" data-dismiss="modal"
+							class="btn btn-primary btn-block btn-lg"
+							data-url="allCheck?courId=${ course.id }&attNum=${ attNum }">전체
+							출석</button>
+					</div>
 					<form class="row row-cols-1 row-cols-md-5" method="post"
 						id="personForm">
 

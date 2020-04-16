@@ -157,7 +157,7 @@ public class ProfessorController {
 		// 해당 과목과 해당 차시의 attendance를 찾음.
 		List<Attendance> attendances = attendanceRepository.findByRegistration_Course_IdAndNum(courId, attNum);
 		model.addAttribute("modalList", attendances);
-
+		model.addAttribute("attNum", attNum);
 		dateList(model, courId, request);
 
 		return "professor/dataList";
@@ -175,6 +175,22 @@ public class ProfessorController {
 		// 그 순서대로 출석 상태 변경 후 저장
 		for (int i = 0; i < attendances.size(); ++i) {
 			attendances.get(i).setState(state[i]);
+			attendanceRepository.save(attendances.get(i));
+		}
+
+		return "redirect:dateList?courId=" + courId;
+	}
+
+	// personModal의 전체 출석
+	@RequestMapping(value = "allCheck")
+	public String allCheck(Model model, @RequestParam("courId") int courId, @RequestParam("attNum") int attNum,
+			HttpServletRequest request) {
+		// 보여줬던 학생 리스트를 다시 찾아서
+		List<Attendance> attendances = attendanceRepository.findByRegistration_Course_IdAndNum(courId, attNum);
+
+		// 그 순서대로 출석 상태 변경 후 저장
+		for (int i = 0; i < attendances.size(); ++i) {
+			attendances.get(i).setState(1);
 			attendanceRepository.save(attendances.get(i));
 		}
 

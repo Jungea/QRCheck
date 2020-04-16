@@ -78,7 +78,7 @@ hr {
 				<div class="card-body">
 					<div class="mb-2">
 						<button type="button" id="openQRBtn"
-							class="btn btn-primary btn-block btn-lg">QR 코드 실행</button>
+							class="btn btn-primary btn-block btn-lg">QR 코드 열기</button>
 					</div>
 
 					<div class="row row-cols-1 row-cols-md-3">
