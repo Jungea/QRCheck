@@ -56,12 +56,8 @@ hr {
 							error : function(e) {
 							}
 						});
-
 					})
 
-			$(".openPersonModal").click(function() {
-
-			})
 		})
 	</script>
 
@@ -93,7 +89,8 @@ hr {
 
 								<div class="card card_lecture">
 									<div class="card-body">
-										<h5 class="card-title">${ card.attNum }회차 &nbsp${ card.date }</h5>
+										<h5 class="card-title">${ card.attNum }회차&nbsp${
+											card.date }</h5>
 										<h6 class="card-subtitle mb-2 text-muted">${ card.getStringWeek(card.date.getDayOfWeek().getValue()) }
 											${ card.startTime } - ${ card.endTime }</h6>
 										<p class="card-text">출석체크 인원 ${ card.checkNum }/${ card.totalNum }</p>

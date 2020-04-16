@@ -104,18 +104,21 @@ public class SuperController {
 
 		}
 	}
-	
+
 	@RequestMapping("insertAttendance")
 	public void insertAttendance() {
 		List<Registration> registration = registrationRepository.findAll();
+		int weekSize;
 		for (int j = 0; j < registration.size(); ++j) {
-			for (int i = 1; i < 16; ++i) {
+			weekSize = (registration.get(j).getCourse().getTimes().size() == 1) ? 16 : 31;
+			for (int i = 1; i < weekSize; ++i) {
 				Attendance a = new Attendance();
 				a.setNum(i);
 				a.setState(0);
 				a.setRegistration(registration.get(j));
 				attendanceRepository.save(a);
 			}
+
 		}
 	}
 
