@@ -10,7 +10,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 	crossorigin="anonymous"></script>
 <script
@@ -23,21 +23,21 @@
 
 <style type="text/css">
 .container {
-            max-width: 500px;
-        }
+	max-width: 500px;
+}
 </style>
 
 
 <script>
 	$(function() {
-		
+
 	})
 </script>
 
 </head>
 <body>
 
-	<nav class="navbar navbar-expand navbar-dark bg-primary mb-3" >
+	<nav class="navbar navbar-expand navbar-dark bg-primary mb-3">
 		<a class="navbar-brand" href="#">성공회대학교 출석체크</a>
 
 	</nav>
@@ -47,9 +47,9 @@
 		<hr />
 		<form method="post">
 			<div class="form-group">
-				<label for="num" class="sr-only">아이디 :</label> <input
-					type="text" id="num" name="num" value=""
-					class="form-control" placeholder="아이디" required autofocus />
+				<label for="num" class="sr-only">아이디 :</label> <input type="text"
+					id="num" name="num" value="" class="form-control" placeholder="아이디"
+					required autofocus />
 			</div>
 
 			<div class="form-group">
@@ -57,13 +57,13 @@
 					type="password" id="pass" name="pass" class="form-control"
 					placeholder="비밀번호" required>
 			</div>
-			
-			<div class="text-center" style="color:red">${ message }</div>
+
+			<div class="text-center" style="color: red">${ message }</div>
 
 			<hr />
 			<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
 		</form>
-		
+
 
 	</div>
 

@@ -72,7 +72,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal" data-url="dateList?courId=${ course.id }">Close</button>
+						data-dismiss="modal" data-url="dateList?courId=${ course.id }">취소</button>
 					<button type="submit" class="btn btn-primary" form="personForm">저장</button>
 				</div>
 			</div>
