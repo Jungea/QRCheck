@@ -36,7 +36,7 @@ height: 5px;
 		<div class="jumbotro ">
 
 
-			<h1 class=""><b>강 의 목 록</b></h1>
+			<h1 class=""><b>강의 목록</b></h1>
 			<hr />
 
 			<div class="card" style="border: 1px solid white">

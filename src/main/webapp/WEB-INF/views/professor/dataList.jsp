@@ -93,7 +93,7 @@ hr {
 											card.date }</h5>
 										<h6 class="card-subtitle mb-2 text-muted">${ card.getStringWeek(card.date.getDayOfWeek().getValue()) }
 											${ card.startTime } - ${ card.endTime }</h6>
-										<p class="card-text">출석체크 인원 ${ card.checkNum }/${ card.totalNum }</p>
+										<p class="card-text">출석체크 인원 ${ card.checkNum }/${ card.totalNum } (${ card.rightNum })</p>
 										<a href="#" class="card-link">출석체크</a>
 									</div>
 								</div>

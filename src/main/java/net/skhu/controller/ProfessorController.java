@@ -116,6 +116,9 @@ public class ProfessorController {
 
 			// 총인원
 			card.setTotalNum(c.getRegistrations().size());
+			
+			//출석 1번
+			card.setRightNum(attendanceRepository.findByNumAndStateAndRegistration_Course_id(attNum, 1, courId).size());
 
 			list.add(card);
 		}
@@ -130,6 +133,7 @@ public class ProfessorController {
 			card.setCheckNum(
 					attendanceRepository.findByNumAndStateNotAndRegistration_Course_id(attNum, 0, courId).size());
 			card.setTotalNum(c.getRegistrations().size());
+			card.setRightNum(attendanceRepository.findByNumAndStateAndRegistration_Course_id(attNum, 1, courId).size());
 			list.add(card);
 		}
 

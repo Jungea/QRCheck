@@ -13,6 +13,7 @@ public class DateCard {
 	LocalTime endTime;
 	int checkNum;
 	int totalNum;
+	int rightNum;
 	
 	public String getStringWeek(int dayOfWeek) {
 		String[] week = { "월", "화", "수", "목", "금", "토", "일" };

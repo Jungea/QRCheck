@@ -10,6 +10,8 @@ import net.skhu.domain.Attendance;
 public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
 
 	List<Attendance> findByNumAndStateNotAndRegistration_Course_id(int num, int state, int courId);
+	
+	List<Attendance> findByNumAndStateAndRegistration_Course_id(int num, int state, int courId);
 
 	// [앱] 출석 테이블
 	// 강의 신청 별 출석 상태들의 개수

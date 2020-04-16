@@ -46,7 +46,7 @@ public class APIController {
 	 */
 	public LocalDateTime now() {
 //		return LocalDateTime.now();
-		return LocalDateTime.of(2020, 04, 13, 9, 00);
+		return LocalDateTime.of(2020, 04, 13, 9, 1);
 	}
 
 	public int getSemId() {
@@ -56,6 +56,7 @@ public class APIController {
 	// [앱]로그인
 	@RequestMapping("login/{stuNum}/{password}")
 	public Student login(@PathVariable("stuNum") String stuNum, @PathVariable("password") String password) {
+		
 		return studentRepository.findByStuNumAndPassword(stuNum, password);
 	}
 
@@ -275,7 +276,8 @@ public class APIController {
 		for (int i = 0; i < timeList.size(); ++i) {
 			if (timeList.get(i).getDayOfWeek() == nowDayOfWeek) {
 
-				if (timeList.get(i).getStartTime().minusSeconds(1).isBefore(now) && now.isBefore(timeList.get(i).getEndTime())) {
+				if (timeList.get(i).getStartTime().minusSeconds(1).isBefore(now)
+						&& now.isBefore(timeList.get(i).getEndTime())) {
 					timeListIndex = i;
 					break;
 				}
@@ -298,7 +300,7 @@ public class APIController {
 					attedanceNum, 0);
 			for (Attendance a : attendances) {
 				a.setState(3);
-//				attendanceRepository.save(a);
+				attendanceRepository.save(a);
 			}
 
 		}
