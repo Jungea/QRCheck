@@ -45,8 +45,8 @@ public class APIController {
 	 * 현재 시간 조절 (년, 월, 일, 시, 분)
 	 */
 	public LocalDateTime now() {
-		return LocalDateTime.now();
-//		return LocalDateTime.of(2020, 04, 16, 12, 18);
+//		return LocalDateTime.now();
+		return LocalDateTime.of(2020, 04, 13, 9, 00);
 	}
 
 	public int getSemId() {
@@ -113,8 +113,7 @@ public class APIController {
 
 				for (int i = 0; i < timeList.size(); ++i) {
 					if (timeList.get(i).getDayOfWeek() == nowDayOfWeek) {
-
-						if (timeList.get(i).getStartTime().isBefore(now)
+						if (timeList.get(i).getStartTime().minusSeconds(1).isBefore(now)
 								&& now.isBefore(timeList.get(i).getEndTime())) {
 							timeListIndex = i;
 							break;
@@ -191,7 +190,7 @@ public class APIController {
 
 					if (timeList.get(j).getDayOfWeek() == nowDayOfWeek) {
 
-						if (timeList.get(j).getStartTime().isBefore(now)
+						if (timeList.get(j).getStartTime().minusSeconds(1).isBefore(now)
 								&& now.isBefore(timeList.get(j).getEndTime())) {
 							timeListIndex = j; // 시간인덱스
 							break;
@@ -276,7 +275,7 @@ public class APIController {
 		for (int i = 0; i < timeList.size(); ++i) {
 			if (timeList.get(i).getDayOfWeek() == nowDayOfWeek) {
 
-				if (timeList.get(i).getStartTime().isBefore(now) && now.isBefore(timeList.get(i).getEndTime())) {
+				if (timeList.get(i).getStartTime().minusSeconds(1).isBefore(now) && now.isBefore(timeList.get(i).getEndTime())) {
 					timeListIndex = i;
 					break;
 				}
@@ -299,7 +298,7 @@ public class APIController {
 					attedanceNum, 0);
 			for (Attendance a : attendances) {
 				a.setState(3);
-				attendanceRepository.save(a);
+//				attendanceRepository.save(a);
 			}
 
 		}
