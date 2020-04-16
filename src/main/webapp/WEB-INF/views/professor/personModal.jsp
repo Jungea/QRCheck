@@ -17,9 +17,11 @@
 			role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title ml-2" id="exampleModalLabel"><b>출석 입력</b></h4>
+					<h4 class="modal-title ml-2" id="exampleModalLabel">
+						<b>출석 입력</b>
+					</h4>
 					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+						aria-label="Close" data-url="dateList?courId=${ course.id }">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -64,9 +66,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary" form="personForm">Save
-						changes</button>
+						data-dismiss="modal" data-url="dateList?courId=${ course.id }">Close</button>
+					<button type="submit" class="btn btn-primary" form="personForm">저장</button>
 				</div>
 			</div>
 		</div>
