@@ -45,8 +45,8 @@ public class APIController {
 	 * 현재 시간 조절 (년, 월, 일, 시, 분)
 	 */
 	public LocalDateTime now() {
-//		return LocalDateTime.now();
-		return LocalDateTime.of(2020, 04, 13, 9, 1);
+		return LocalDateTime.now();
+//		return LocalDateTime.of(2020, 04, 13, 9, 1);
 	}
 
 	public int getSemId() {
@@ -208,8 +208,8 @@ public class APIController {
 		}
 
 		if (courseListIndex == -1) { // 강의들과 시간이 하나도 안맞음.
-			System.out.println("현재 " + roomCode + " 강의실에 수업 중인 강의가 없습니다.");
-			return new Message("현재 " + roomCode + " 강의실에 수업 중인 강의가 없습니다.");
+			System.out.println("현재 " + roomCode + " 강의실에 수강 중인 강의가 없습니다.");
+			return new Message("현재 " + roomCode + " 강의실에 수강 중인 강의가 없습니다.");
 
 		} else { // 몇주가 지났는지
 			Course course = courseList.get(courseListIndex);
@@ -231,8 +231,8 @@ public class APIController {
 			Attendance a = attendanceRepository.findByRegistration_IdAndNum(registration.getId(), attedanceNum);
 			int state = a.getState();
 			if (state == 1) {
-				System.out.println(course.getName() + "강의 을(를) 이미 출석 하였습니다.");
-				return new Message(course.getName() + "강의 을(를) 이미 출석 하였습니다.");
+				System.out.println(course.getName() + "강의를 이미 출석 하였습니다.");
+				return new Message(course.getName() + "강의를 이미 출석 하였습니다.");
 			} else {
 				if (course.getShow()) {// 출석 중인가?
 					a.setState(1);
