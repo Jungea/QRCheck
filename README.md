@@ -12,15 +12,15 @@
 **6202** 강의실의 시간표와 강의실 QR코드
 
 |시간표| QR코드 |
-|--|--|
-| ![6202](https://user-images.githubusercontent.com/33142199/79813202-f3279c00-83b5-11ea-81cf-beae8d3274de.jpg =200x300) | ![6202](https://user-images.githubusercontent.com/33142199/79812723-b4ddad00-83b4-11ea-90da-a38cd5b825a2.png =300x300) |
+|:-:|:-:|
+| <img src="https://user-images.githubusercontent.com/33142199/79813202-f3279c00-83b5-11ea-81cf-beae8d3274de.jpg" alt="6202 시간표" width="200px" height="300px"> | <img src="https://user-images.githubusercontent.com/33142199/79812723-b4ddad00-83b4-11ea-90da-a38cd5b825a2.png" alt="6202 QR" width="300px" height="300px"> |
 > 소프트웨어 캡스톤디자인은 6202 강의다.
 
 ## 
 **6405** 강의실의 시간표와 강의실 QR코드
 |시간표| QR코드 |
 |--|--|
-| ![6405](https://user-images.githubusercontent.com/33142199/79813205-f589f600-83b5-11ea-8e67-ddac52842f1b.jpg =200x300) | ![6405](https://user-images.githubusercontent.com/33142199/79812777-d8a0f300-83b4-11ea-852a-9ccccf2f2bd8.png =300x300) |
+| <img src="https://user-images.githubusercontent.com/33142199/79813205-f589f600-83b5-11ea-8e67-ddac52842f1b.jpg" alt="6405 시간표" width="200px" height="300px"> | <img src="https://user-images.githubusercontent.com/33142199/79812777-d8a0f300-83b4-11ea-852a-9ccccf2f2bd8.png" alt="6405 QR" width="300px" height="300px"> |
 
 ## 테스트
 
