@@ -2,6 +2,7 @@ package net.skhu.controller;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +46,8 @@ public class APIController {
 	 * 현재 시간 조절 (년, 월, 일, 시, 분)
 	 */
 	public LocalDateTime now() {
-		return LocalDateTime.now();
-//		return LocalDateTime.of(2020, 04, 13, 9, 1);
+//		return LocalDateTime.now();
+		return LocalDateTime.of(2020, 04, 21, 14, 40);
 	}
 
 	public int getSemId() {
@@ -89,7 +90,7 @@ public class APIController {
 	// 강의 QR
 	@RequestMapping("check/{courId}/{stuId}")
 	public Message checkQR(@PathVariable("courId") int courId, @PathVariable("stuId") int stuId) {
-		System.out.println(courId + " " + stuId);
+		System.out.println("check"+courId + " " + stuId);
 		LocalDateTime nowDateTime = now();
 		LocalTime now = nowDateTime.toLocalTime();
 
@@ -113,6 +114,7 @@ public class APIController {
 				int nowDayOfWeek = nowDateTime.getDayOfWeek().getValue();
 
 				for (int i = 0; i < timeList.size(); ++i) {
+					
 					if (timeList.get(i).getDayOfWeek() == nowDayOfWeek) {
 						if (timeList.get(i).getStartTime().minusSeconds(1).isBefore(now)
 								&& now.isBefore(timeList.get(i).getEndTime())) {
@@ -128,21 +130,24 @@ public class APIController {
 					return new Message(course.getName() + "의 강의 시간이 아닙니다.");
 
 				} else { // 몇주가 지났는지
-					int x = timeList.get(timeListIndex).getStartDate().until(nowDateTime.toLocalDate()).getDays() / 7;
+					int x = (int) (timeList.get(timeListIndex).getStartDate().until(nowDateTime.toLocalDate(), ChronoUnit.DAYS) / 7);
 					int attedanceNum; // 차시
 
 					if (timeList.size() == 1) // 분할 강의가 아닐 때
 						attedanceNum = x + 1;
 					else
 						attedanceNum = 2 * x + timeListIndex + 1;
+					System.out.println(attedanceNum);
 
 					// 해당 학생, 해당 과목, 해당 등록, 해당 차시의 출석
 					Attendance a = attendanceRepository.findByRegistration_IdAndNum(registration.getId(), attedanceNum);
+					System.out.println(a);
 					int state = a.getState();
 
 					if (state == 1) {
 						System.out.println(course.getName() + "은(는) 이미 출석 하였습니다.");
 						return new Message(course.getName() + "은(는) 이미 출석 하였습니다.");
+						
 
 					} else {
 						a.setState(1);
@@ -217,7 +222,7 @@ public class APIController {
 			List<Time> timeList = course.getTimes();
 
 			System.out.println(course);
-			int x = timeList.get(timeListIndex).getStartDate().until(nowDateTime.toLocalDate()).getDays() / 7;
+			int x = (int) (timeList.get(timeListIndex).getStartDate().until(nowDateTime.toLocalDate(), ChronoUnit.DAYS) / 7);
 			int attedanceNum; // 차시
 
 			if (timeList.size() == 1) // 분할 강의가 아닐 때
@@ -231,8 +236,8 @@ public class APIController {
 			Attendance a = attendanceRepository.findByRegistration_IdAndNum(registration.getId(), attedanceNum);
 			int state = a.getState();
 			if (state == 1) {
-				System.out.println(course.getName() + "강의를 이미 출석 하였습니다.");
-				return new Message(course.getName() + "강의를 이미 출석 하였습니다.");
+				System.out.println(course.getName() + "강의를 이 출석 하였습니다.");
+				return new Message(course.getName() + "강의를 이 출석 하였습니다.");
 			} else {
 				if (course.getShow()) {// 출석 중인가?
 					a.setState(1);
@@ -290,7 +295,7 @@ public class APIController {
 			System.out.println(course.getName() + "의 강의 시간이 아닙니다.");
 
 		} else { // 몇주가 지났는지
-			int x = timeList.get(timeListIndex).getStartDate().until(nowDateTime.toLocalDate()).getDays() / 7;
+			int x = (int) (timeList.get(timeListIndex).getStartDate().until(nowDateTime.toLocalDate(), ChronoUnit.DAYS) / 7);
 			int attedanceNum; // 차시
 			if (timeList.size() == 1) // 분할 강의가 아닐 때
 				attedanceNum = x + 1;
