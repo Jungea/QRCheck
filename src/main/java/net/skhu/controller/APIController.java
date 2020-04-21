@@ -46,8 +46,8 @@ public class APIController {
 	 * 현재 시간 조절 (년, 월, 일, 시, 분)
 	 */
 	public LocalDateTime now() {
-//		return LocalDateTime.now();
-		return LocalDateTime.of(2020, 04, 21, 14, 40);
+		return LocalDateTime.now();
+//		return LocalDateTime.of(2020, 04, 21, 14, 40);
 	}
 
 	public int getSemId() {
@@ -296,6 +296,7 @@ public class APIController {
 
 		} else { // 몇주가 지났는지
 			int x = (int) (timeList.get(timeListIndex).getStartDate().until(nowDateTime.toLocalDate(), ChronoUnit.DAYS) / 7);
+
 			int attedanceNum; // 차시
 			if (timeList.size() == 1) // 분할 강의가 아닐 때
 				attedanceNum = x + 1;
