@@ -44,7 +44,10 @@ APIController.java now()를 수정하면 된다.
   
 ##
 
-다른 테스트는   [QRCheck_Android](https://github.com/Jungea/QRCheck_Android)로 이동
+다른 테스트는   [QRCheck_Android](https://github.com/Jungea/QRCheck_Android)로 이동  
+
+
+시연영상  https://youtu.be/30qy2W7MbPU
 
 
 
